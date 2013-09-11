@@ -1,0 +1,9 @@
+.git
+build/
+.settings/
+.classpath
+.project
+.project/
+.DS_Store
+*~
+*.class
