@@ -1,0 +1,129 @@
+html,body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #444;
+	color: #666;
+	font: 75%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+#page {
+	position: relative; /*Contexto de posicionamento */
+	background-color: #444;
+
+	text-align: left;
+	min-height: 100%; /**/
+	border: dotted #999;
+	border-width: 0 1px;
+}
+
+* html #page {
+	height: 100%;
+}
+
+#container {
+	padding-bottom: 30px;
+}
+
+#header {
+	height: 100px;
+	border-bottom: 1px dotted #999;
+	text-align: center;
+	padding-top: 1px;
+
+	 /* fallback */
+	  background-color: #333;
+	  /* Safari 4-5, Chrome 1-9 */
+	  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#333));
+	  /* Safari 5.1, Chrome 10+ */
+	  background: -webkit-linear-gradient(top, #333, #000);
+	  /* Firefox 3.6+ */
+	  background: -moz-linear-gradient(top, #333, #000);
+	  /* IE 10 */
+	  background: -ms-linear-gradient(top, #333, #000);
+	  /* Opera 11.10+ */
+	  background: -o-linear-gradient(top, #333, #000);
+
+}
+
+#console {
+	padding-left: 20px;
+	float: left;
+	padding-top: 10px;
+	text-align: justify;
+	overflow: auto;
+	height:500px;
+}
+
+#footer {
+	width: 100%;
+	height: 85px;
+	position: absolute;
+	bottom: 0;
+	border: dotted #999;
+	border-width: 1px 0;
+	text-align: center;
+
+	 /* fallback */
+	  background-color: #333;
+	  /* Safari 4-5, Chrome 1-9 */
+	  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#000));
+	  /* Safari 5.1, Chrome 10+ */
+	  background: -webkit-linear-gradient(top, #000, #333);
+	  /* Firefox 3.6+ */
+	  background: -moz-linear-gradient(top, #000, #333);
+	  /* IE 10 */
+	  background: -ms-linear-gradient(top, #000, #333);
+	  /* Opera 11.10+ */
+	  background: -o-linear-gradient(top, #000, #333);
+}
+
+#footer p {
+	margin: 0;
+	font-weight: bold;
+	color: #060;
+}
+.clear {
+	clear: both;
+}
+
+.btn-file{
+
+	background-image:url(../img/console.png);
+	background-color: #000;
+	height:45px;
+	padding-left: 35px;
+	padding-right: 35px;
+	text-align:center;
+	color: #AAA;
+	font-size: 12px;
+	font-weight:bold;
+	font-family: "Arial", Helvetica, sans-serif;
+	background-repeat: no-repeat;
+	background-position: center left;
+
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 0 rgba(30, 30, 30, 0.5) inset;
+    border-style: solid;
+    border-color: #111;
+    border-width: 1px;
+    cursor: pointer;
+}
+.btn-file:hover{
+	opacity:0.2;
+	filter:alpha(opacity=20); /* For IE8 and earlier */
+}
+
+.btn-file:active{
+	opacity:0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+	border-color: #444;
+}
+
+.list li {
+	display: inline;
+}

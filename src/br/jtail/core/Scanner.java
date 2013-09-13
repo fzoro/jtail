@@ -7,10 +7,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.json.JSONStringer;
+
 public final class Scanner
 {
 
-	public static DataFile readToDataFile(final String fileName, final String filePath, final int skip)
+	public static DataFile readToDataFile(final String fileName, final String filePath, int skip)
 	{
 		File file = new File(filePath);
 		FileInputStream fis = null;
@@ -27,18 +29,35 @@ public final class Scanner
 			bis = new BufferedInputStream(fis);
 			dis = new DataInputStream(bis);
 
-			int size = 1024 * 1024;
-			int bytes = 0;
-			byte[] buff = new byte[size];
+			int bytes = (int) file.length();
+			byte[] buff = new byte[bytes];
+
+			// skip greater than file(in bytes)
+			if (skip > bytes)
+			{
+				skip = 0;
+			}
+			// size to read
+			int size = bytes - skip;
+
+			String txt = "";
 
 			if (dis.available() != 0)
 			{
 
+				// read in the past call
 				dis.skip(skip);
-				bytes = dis.read(buff);
-				result = new DataFile().bytes(bytes).fileName(fileName).value(new String(buff));
+
+				// read to buff
+				dis.read(buff);
+
+				// to string
+				txt = new String(buff, 0, size);
 
 			}
+
+			// create result. ;)
+			result = new DataFile().bytes(bytes).fileName(fileName).value(txt);
 
 			// dispose all the resources after using them.
 			fis.close();
@@ -75,7 +94,8 @@ public final class Scanner
 		@Override
 		public String toString()
 		{
-			return String.format("{ \"fileName\" : \"%s\", \"off\":\"%d\", \"value\":\"%s\"}", this.fileName, this.bytes, this.value);
+			// return String.format("{ \"fileName\" : \"%s\", \"off\":\"%d\", \"value\":\"%s\"}", this.fileName, this.bytes, this.value);
+			return new JSONStringer().object().key("fileName").value(this.fileName).key("off").value(this.bytes).key("value").value(this.value).endObject().toString();
 
 		}
 

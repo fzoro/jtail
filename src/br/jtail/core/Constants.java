@@ -8,6 +8,11 @@ public interface Constants
 		String CONTENT_TYPE_JSON = "application/json";
 	}
 
+	interface Actions
+	{
+		String GET_FILES = "get-files";
+	}
+
 	interface Messages
 	{
 

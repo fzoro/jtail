@@ -2,35 +2,32 @@ package br.jtail.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
-
 import br.jtail.core.Constants;
 import br.jtail.core.ErrorHandler;
+import br.jtail.core.JTailException;
 import br.jtail.core.Prop;
-import br.jtail.core.Scanner;
-import br.jtail.core.Scanner.DataFile;
 
 /**
  * Servlet implementation class ServletTail
  */
-public class ServletTail extends HttpServlet
+public class ServletHome extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public ServletTail()
+	public ServletHome()
 	{
-		// TODO Auto-generated constructor stub
+		//
 	}
 
 	/**
@@ -39,30 +36,22 @@ public class ServletTail extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 
-		response.setContentType(Constants.Conf.CONTENT_TYPE_JSON);
+		final String action = request.getParameter("action");
+
+		String jsonResult = "{}";
 
 		try
 		{
 
-
-
-			String fileName = request.getParameter("fileName");
-			String filePath = Prop.get().getProperties().getProperty(fileName);
-			String off = request.getParameter("off");
-			int intOff;
-			try
+			if (Constants.Actions.GET_FILES.equals(action))
 			{
-				intOff = Integer.valueOf(off);
-			}
-			catch (Exception e)
-			{
-				intOff = 0;
+
+				jsonResult = getFiles();
 			}
 
-			DataFile dataFile = Scanner.readToDataFile(fileName, filePath, intOff);
-
+			response.setContentType(Constants.Conf.CONTENT_TYPE_JSON);
 			PrintWriter out = response.getWriter();
-			out.print(dataFile);
+			out.print(jsonResult);
 			out.flush();
 		}
 		catch (Exception e)
@@ -71,11 +60,27 @@ public class ServletTail extends HttpServlet
 		}
 	}
 
-	public static void main(String[] args)
+	private String getFiles() throws JTailException
 	{
-		DataFile dataFile = Scanner.readToDataFile("application", "c://application.log", 0);
+		Set<Object> keys = Prop.get().getProperties().keySet();
 
-		System.out.println(dataFile);
+		StringBuffer buff = new StringBuffer();
+
+		buff.append("[");
+		for (Object key : keys)
+		{
+			buff.append("{");
+			buff.append("\"name\":");
+			buff.append("\"");
+			buff.append(key);
+			buff.append("\"");
+			buff.append("}");
+			buff.append(",");
+		}
+
+		buff.delete(buff.length() - 1, buff.length());
+		buff.append("]");
+		return buff.toString();
 	}
 
 	/**
