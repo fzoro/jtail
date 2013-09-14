@@ -1,12 +1,13 @@
 html,body {
 	height: 100%;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
 body {
 	margin: 0;
 	padding: 0;
-	background: #444;
-	color: #666;
+/*	background: #444; */
+	color: #BBB;
 	font: 75%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	text-align: center;
 }
@@ -17,7 +18,7 @@ body {
 
 	text-align: left;
 	min-height: 100%; /**/
-	border: dotted #999;
+	/*border: dotted #999;*/
 	border-width: 0 1px;
 }
 
@@ -30,11 +31,10 @@ body {
 }
 
 #header {
-	height: 100px;
-	border-bottom: 1px dotted #999;
+	height: 125px;
+	/*border-bottom: 1px dotted #999;*/
 	text-align: center;
 	padding-top: 1px;
-
 	 /* fallback */
 	  background-color: #333;
 	  /* Safari 4-5, Chrome 1-9 */
@@ -49,14 +49,23 @@ body {
 	  background: -o-linear-gradient(top, #333, #000);
 
 }
+#face{
+
+	width:100%;
+	position:absolute;
+	bottom: 85px;
+	top:125px;
+}
 
 #console {
-	padding-left: 20px;
-	float: left;
-	padding-top: 10px;
-	text-align: justify;
+	position:relative;
+	text-align: left;
 	overflow: auto;
-	height:500px;
+	height:100%;
+	white-space: pre;
+	font-size:11px;
+	width:100%;
+	background-color:black;
 }
 
 #footer {
@@ -64,7 +73,7 @@ body {
 	height: 85px;
 	position: absolute;
 	bottom: 0;
-	border: dotted #999;
+	/*border: dotted #999;*/
 	border-width: 1px 0;
 	text-align: center;
 
@@ -91,18 +100,43 @@ body {
 	clear: both;
 }
 
+.btn-file-active{
+
+	background-image:url(../img/console_active.png);
+	background-color: rgb(153,217,234);
+
+	height:45px;
+	padding-left: 40px;
+	padding-right: 40px;
+	text-align:center;
+	color: #000;
+	font-size: 12px;
+	font-weight:bold;
+	text-decoration:italic;
+	background-repeat: no-repeat;
+	background-position: center left;
+
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 0 rgba(30, 30, 30, 0.5) inset;
+    border-style: solid;
+    border-color: #111;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+
 .btn-file{
 
 	background-image:url(../img/console.png);
 	background-color: #000;
 	height:45px;
-	padding-left: 35px;
-	padding-right: 35px;
+	padding-left: 40px;
+	padding-right: 40px;
 	text-align:center;
 	color: #AAA;
 	font-size: 12px;
 	font-weight:bold;
-	font-family: "Arial", Helvetica, sans-serif;
+	text-decoration:italic;
 	background-repeat: no-repeat;
 	background-position: center left;
 
@@ -126,4 +160,31 @@ body {
 
 .list li {
 	display: inline;
+}
+
+#actions{
+
+	float:right;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+	vertical-align: middle;
+    font-size:9px;
+    font-weight:bold;
+    display: none;
+
+}
+
+::-webkit-scrollbar {
+     width:10px;    /*Vertical bar*/
+     height:10px;   /*Horizontal bar*/
+     background:#000;
+}
+
+::-webkit-scrollbar-track-piece  {
+    background-color: #3b3b3b;
+}
+
+::-webkit-scrollbar-thumb {
+   width: 15px;
+   background:rgba(255, 255, 255, 1);
 }

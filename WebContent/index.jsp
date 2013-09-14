@@ -4,43 +4,34 @@
 
 <html lang="en">
 <head>
-<title>Demo</title>
+<title>Java Tail</title>
 <script src="<%=request.getContextPath()%>/res/js/jquery-1.10.2.min.js"></script>
 <script src="<%=request.getContextPath()%>/res/js/app/app.js"></script>
 <script src="<%=request.getContextPath()%>/res/js/angular-1.0.1.min.js"></script>
-<script src="<%=request.getContextPath()%>/res/lightbox/jquery.lightbox-0.5.pack.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/res/lightbox/jquery.lightbox-0.5.css" media="screen" />
 
 
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/res/style/style.css" media="screen" />
-
-<!-- Ativando o jQuery lightBox plugin -->
-<script type="text/javascript">
-	$(function() {
-		$('#list-section a').lightBox({
-			fixedNavigation : true
-		});
-	});
-</script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/res/style/style.css" media="screen" />
 
 
 </head>
 <body ng-app ng-controller="HomeController">
 	<div id="page">
 		<div id="container">
-			<div id="header">
-				<h1>Topo</h1>
-				<div style="float:right">
-					file: {{fileName}} | kb: {{kbytes}}
+			<div id="header" >
+				<div style="float:left"><img id="logo" src="<%=request.getContextPath()%>/res/img/logo.png" /></div>
+				<div id="actions">
+					<h3>File: {{fileName}} | KB: {{kbytes}}</h3>
+					<img id="actClear" src="<%=request.getContextPath()%>/res/img/clear.png" ng-click="clear()" alt="Clear console" title="Clear console" />
+					<img id="actPause" src="<%=request.getContextPath()%>/res/img/pause.png" ng-click="pause()" alt="Pause tail" title="Pause tail" />
+					<img style="display:none" id="actPlay" src="<%=request.getContextPath()%>/res/img/play.png" ng-click="resume()" alt="Resume tail" title="Resume tail" />
 				</div>
 				<input type="hidden" ng-model="off" />
 			</div>
-			<div id="console">
-				{{console}}
-
+			<div id="face">
+				<div id="console">
+					{{console}}
+				</div>
 			</div>
-
 			<div class="clear"></div>
 
 		</div>
@@ -51,39 +42,11 @@
 
 				<div id="list-section">
 
-				<ul class="list">
-						<li ng-repeat="f in files">
-							<button class="btn-file" ng-click="show(f)">{{f.name}}</button>
-						</li>
-				</ul>
-					<!--
 					<ul class="list">
-						<li><a
-							href="<%=request.getContextPath()%>/res/img/image1.jpg"
-							title="For this example: $('#gallery a').lightBox();"> A<img
-								src="<%=request.getContextPath()%>/res/img/thumb_image1.jpg"
-								width="72" height="72" alt="" />
-						</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/res/img/image2.jpg"
-							title="For this example: $('#gallery a').lightBox();"> B<img
-								src="<%=request.getContextPath()%>/res/img/thumb_image2.jpg"
-								width="72" height="72" alt="" />
-						</a></li>
-						<li><a href="photos/image3.jpg"
-							title="For this example: $('#gallery a').lightBox();"> C<img
-								src="photos/thumb_image3.jpg" width="72" height="72" alt="" />
-						</a></li>
-						<li><a href="photos/image4.jpg"
-							title="For this example: $('#gallery a').lightBox();"> S<img
-								src="photos/thumb_image4.jpg" width="72" height="72" alt="" />
-						</a></li>
-						<li><a href="photos/image5.jpg"
-							title="For this example: $('#gallery a').lightBox();"> E<img
-								src="photos/thumb_image5.jpg" width="72" height="72" alt="" />
-						</a></li>
+						<li ng-repeat="f in files">
+							<button id="btn_{{f.name}}" class="btn-file" ng-click="start(f)" title="tail it">{{f.name}}</button>
+						</li>
 					</ul>
-					 -->
 				</div>
 			</div>
 		</div>
