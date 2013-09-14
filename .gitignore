@@ -1,6 +1,7 @@
 .git
 build/
 .settings/
+.externalToolBuilders/
 .classpath
 .project
 .project/
