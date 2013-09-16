@@ -89,7 +89,6 @@ function HomeController($scope, $window, $http, $log){
 			$scope.off = data.off;
 			var kbytes = data.off / 1024;
 			$scope.kbytes = kbytes.toFixed(2);
-
 		});
 	}
 
@@ -101,7 +100,7 @@ function HomeController($scope, $window, $http, $log){
 			$scope.console = '\n--> JTail console!!! ;P\n\n';
 		}
 		$scope.console += value;
-
+		$('#console').scrollTop($('#console')[0].scrollHeight);
 	}
 
 	init();
