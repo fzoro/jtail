@@ -4,11 +4,18 @@ function HomeController($scope, $window, $http, $log){
 	var
 
 		fileInterval,
+		autoScroll = true,
 		current,
 		$ = jQuery
 	;
 
 
+
+	$scope.changeAutoscroll = function(){
+		autoScroll = !autoScroll;
+		var imgSrc = autoScroll ? '/jtail/res/img/autoscroll.png' : '/jtail/res/img/autoscroll_not.png';
+		$('#actScroll').attr('src',imgSrc);
+	}
 
 	$scope.clear= function(){
 		$scope.console = '';
@@ -100,7 +107,10 @@ function HomeController($scope, $window, $http, $log){
 			$scope.console = '\n--> JTail console!!! ;P\n\n';
 		}
 		$scope.console += value;
-		$('#console').scrollTop($('#console')[0].scrollHeight);
+
+		if( autoScroll ){
+			$('#console').scrollTop($('#console')[0].scrollHeight);
+		}
 	}
 
 	init();

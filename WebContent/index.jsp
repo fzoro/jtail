@@ -21,6 +21,7 @@
 				<div style="float:left"><img id="logo" src="<%=request.getContextPath()%>/res/img/logo.png" /></div>
 				<div id="actions">
 					<h3>File: {{fileName}} | KB: {{kbytes}}</h3>
+					<img id="actScroll" src="<%=request.getContextPath()%>/res/img/autoscroll.png" ng-click="changeAutoscroll()" alt="Auto scroll" title="Auto scroll" />
 					<img id="actClear" src="<%=request.getContextPath()%>/res/img/clear.png" ng-click="clear()" alt="Clear console" title="Clear console" />
 					<img id="actPause" src="<%=request.getContextPath()%>/res/img/pause.png" ng-click="pause()" alt="Pause tail" title="Pause tail" />
 					<img style="display:none" id="actPlay" src="<%=request.getContextPath()%>/res/img/play.png" ng-click="resume()" alt="Resume tail" title="Resume tail" />
