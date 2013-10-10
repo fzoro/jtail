@@ -10,10 +10,9 @@ function HomeController($scope, $window, $http, $log){
 	;
 
 
-
 	$scope.changeAutoscroll = function(){
 		autoScroll = !autoScroll;
-		var imgSrc = autoScroll ? '/jtail/res/img/autoscroll.png' : '/jtail/res/img/autoscroll_not.png';
+		var imgSrc = autoScroll ? 'res/img/autoscroll.png' : 'res/img/autoscroll_not.png';
 		$('#actScroll').attr('src',imgSrc);
 	}
 
@@ -32,6 +31,33 @@ function HomeController($scope, $window, $http, $log){
 		$('#actPlay').css('display','inline');
 	}
 
+
+	$scope.addFile = function(f){
+
+		var frmData = f.serialize();
+
+
+		$.ajax({
+				type: "POST",
+				url: "tail",
+				data: frmData,
+				success: function( data )
+				{
+					alert( data );
+				}
+		});
+	}
+
+	$scope.editFile = function(f){
+
+		$log.info(f);
+	}
+
+
+	$scope.deleteFile = function(f){
+
+		$log.info(f);
+	}
 
 
 	$scope.start = function(f){
@@ -64,7 +90,7 @@ function HomeController($scope, $window, $http, $log){
 
 
 	var init = function(){
-		$http.get('/jtail/home?action=get-files').success(function(data){
+		$http.get('home?action=get-files').success(function(data){
 			$scope.files = data;
 		});
 	};
@@ -85,7 +111,7 @@ function HomeController($scope, $window, $http, $log){
 	* store size bytes[] in {{off}}, value(txt) in {{console}} and off to kBytes in {{kbytes}}
 	*/
 	var tail = function(f){
-		var url = '/jtail/tail?fileName=' + f.name + '&off=' + $scope.off;
+		var url = 'tail?fileName=' + f.name + '&off=' + $scope.off;
 
 		$http.get(url).success(function(data){
 			$scope.fileName = data.fileName;

@@ -1,7 +1,21 @@
 package br.jtail.core;
 
+/**
+ *
+ * Constants
+ *
+ * @author fabiozoroastro@gmail.com
+ */
 public interface Constants
 {
+
+	interface Def
+	{
+
+		String MAX_BUFFER_SUFIX = ".maxbuffer";
+		Integer NEGATIVE_INDEX = -1;
+		Integer K1 = 1024; //bytes
+	}
 
 	interface Conf
 	{

@@ -4,15 +4,35 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.json.JSONStringer;
 
+/**
+ * Scanner is reponsible for the read and skip parts of the file
+ *
+ * @author fabiozoroastro@gmail.com
+ */
 public final class Scanner
 {
 
-	public static DataFile readToDataFile(final String fileName, final String filePath, int skip)
+	/**
+	 *
+	 * Main method. Read informed file and return DataFile
+	 *
+	 * @see DataFile
+	 * @param fileName
+	 *            filename registered
+	 * @param filePath
+	 *            full path
+	 * @param skip
+	 *            in bytes
+	 * @return
+	 *
+	 * @author fabiozoroastro@gmail.com
+	 * @throws JTailException
+	 */
+	public static DataFile readToDataFile(final String fileName, final String filePath, int skip) throws JTailException
 	{
 		File file = new File(filePath);
 		FileInputStream fis = null;
@@ -48,6 +68,9 @@ public final class Scanner
 				// read in the past call
 				dis.skip(skip);
 
+				// only accept max-buffer
+				maxBuffer(fileName, dis, (bytes - skip));
+
 				// read to buff
 				dis.read(buff);
 
@@ -65,18 +88,63 @@ public final class Scanner
 			dis.close();
 
 		}
-		catch (FileNotFoundException e)
+		catch (Exception e)
 		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			new JTailException(e);
 		}
 
 		return result;
 	}
 
+	/**
+	 *
+	 *
+	 * @param fileName
+	 * @param dis
+	 * @param fileLength
+	 *            current file-length(Consider skip if exists)
+	 * @throws JTailException
+	 *
+	 * @author fabiozoroastro@gmail.com
+	 * @throws IOException
+	 */
+	private static void maxBuffer(String fileName, DataInputStream dis, int fileLength) throws JTailException, IOException
+	{
+
+		String fileMaxBuffer = fileName + Constants.Def.MAX_BUFFER_SUFIX;
+
+		int maxKBytes = Constants.Def.NEGATIVE_INDEX;
+		try
+		{
+			String maxBuffer = Prop.get().getProperties().getProperty(fileMaxBuffer);
+			if (maxBuffer != null)
+			{
+				maxKBytes = Integer.valueOf(maxBuffer);
+			}
+		}
+		catch (Exception e)
+		{
+			// do nothing
+		}
+
+		if (maxKBytes > Constants.Def.NEGATIVE_INDEX)
+		{
+			// K1 = 1024
+			int skip = fileLength - (maxKBytes * Constants.Def.K1);
+
+			if (skip > 0)
+			{
+				dis.skip(skip);
+			}
+		}
+
+	}
+
+	/**
+	 *
+	 *
+	 * @author fabiozoroastro@gmail.com
+	 */
 	public static class DataFile
 	{
 

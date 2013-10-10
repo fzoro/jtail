@@ -2,7 +2,9 @@ package br.jtail.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -14,6 +16,8 @@ import br.jtail.core.Constants;
 import br.jtail.core.ErrorHandler;
 import br.jtail.core.JTailException;
 import br.jtail.core.Prop;
+import br.jtail.model.FileConf;
+import br.jtail.util.NumberUtil;
 
 /**
  * Servlet implementation class ServletTail
@@ -58,29 +62,35 @@ public class ServletHome extends HttpServlet
 		{
 			ErrorHandler.execute(response, e);
 		}
+
+		response.setStatus(HttpServletResponse.SC_ACCEPTED);
 	}
 
 	private String getFiles() throws JTailException
 	{
-		Set<Object> keys = Prop.get().getProperties().keySet();
 
-		StringBuffer buff = new StringBuffer();
-
-		buff.append("[");
-		for (Object key : keys)
-		{
-			buff.append("{");
-			buff.append("\"name\":");
-			buff.append("\"");
-			buff.append(key);
-			buff.append("\"");
-			buff.append("}");
-			buff.append(",");
-		}
-
-		buff.delete(buff.length() - 1, buff.length());
-		buff.append("]");
-		return buff.toString();
+		// return new JSONStringer().object().key("fileName").value(this.fileName).key("off").value(this.bytes).key("value").value(this.value).endObject().toString();
+		Collection<FileConf> files = FileConf.getAllFileConfs();
+		return null;
+		// return json files with: name, path, maxbuffer
+		// for (Object key : keys)
+		// {
+		//
+		// if (!key.toString().endsWith(Constants.Def.MAX_BUFFER_SUFIX))
+		// {
+		// buff.append("{");
+		// buff.append("\"name\":");
+		// buff.append("\"");
+		// buff.append(key);
+		// buff.append("\"");
+		// buff.append("}");
+		// buff.append(",");
+		// }
+		// }
+		//
+		// buff.delete(buff.length() - 1, buff.length());
+		// buff.append("]");
+		// return buff.toString();
 	}
 
 	/**
@@ -88,6 +98,6 @@ public class ServletHome extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doGet(request, response);
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	}
 }

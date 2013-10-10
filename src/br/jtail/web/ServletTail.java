@@ -8,12 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
-
 import br.jtail.core.Constants;
 import br.jtail.core.ErrorHandler;
+import br.jtail.core.JTailException;
 import br.jtail.core.Prop;
 import br.jtail.core.Scanner;
 import br.jtail.core.Scanner.DataFile;
@@ -44,8 +41,6 @@ public class ServletTail extends HttpServlet
 		try
 		{
 
-
-
 			String fileName = request.getParameter("fileName");
 			String filePath = Prop.get().getProperties().getProperty(fileName);
 			String off = request.getParameter("off");
@@ -69,11 +64,12 @@ public class ServletTail extends HttpServlet
 		{
 			ErrorHandler.execute(response, e);
 		}
+		response.setStatus(HttpServletResponse.SC_ACCEPTED);
 	}
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws JTailException
 	{
-		DataFile dataFile = Scanner.readToDataFile("application", "c://application.log", 0);
+		DataFile dataFile = Scanner.readToDataFile("application", "c://application.log", 1024);
 
 		System.out.println(dataFile);
 	}
@@ -83,6 +79,34 @@ public class ServletTail extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doGet(request, response);
+		String name = request.getParameter("name");
+		String path = request.getParameter("path");
+		String strMaxBuffer = request.getParameter("maxBuffer");
+		int intMaxBuffer = -1;
+
+		try
+		{
+			intMaxBuffer = Integer.valueOf(strMaxBuffer);
+		}
+		catch (Exception e)
+		{
+			// do nothing
+		}
+
+		try
+		{
+			Prop.get().getProperties().put(name, path);
+			if (intMaxBuffer > -1)
+			{
+				String nameMaxBuffer = name + Constants.Def.MAX_BUFFER_SUFIX;
+				Prop.get().getProperties().put(nameMaxBuffer, intMaxBuffer);
+			}
+		}
+		catch (JTailException e)
+		{
+			ErrorHandler.execute(response, e);
+		}
+
+		response.setStatus(HttpServletResponse.SC_CREATED);
 	}
 }
