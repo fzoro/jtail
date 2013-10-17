@@ -32,18 +32,16 @@ function HomeController($scope, $window, $http, $log){
 	}
 
 
-	$scope.addFile = function(f){
+	$scope.saveFile = function(f){
 
-		var frmData = f.serialize();
-
-
+		var frmData = 'name=' + f.name + '&path=' + f.path + '&maxBuffer=' + f.maxBuffer ;
+		$log.info(frmData);
 		$.ajax({
 				type: "POST",
 				url: "tail",
 				data: frmData,
 				success: function( data )
 				{
-					alert( data );
 				}
 		});
 	}

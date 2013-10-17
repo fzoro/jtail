@@ -59,12 +59,16 @@
 		<div id="modal" style="display:none">
 	    	<h2>Files</h2>
 	    	<div id="persistFields" style="display:inline">
-		    	<form ng-repeat="f in files">
-			    	<input id="name" name="name" type="text" ng-model="f.name" />
-			    	<input id="path" name="path" type="text" ng-model="f.path" />
-			    	<input id="maxBuffer" name="maxBuffer" type="number" ng-model="f.maxBuffer" style="width:50px" />
-			    	<a href="#" ng-click="addFile(f)" class="btn">Save</a>
-			    </form>
+	    	<table>
+	    		<tr ng-repeat="f in files">
+			    	<form>
+				    	<td><input id="name" name="name" type="text" ng-model="f.name" /></td>
+				    	<td><input id="path" name="path" type="text" ng-model="f.path" /></td>
+				    	<td><input id="maxBuffer" name="maxBuffer" type="number" ng-model="f.maxBuffer" style="width:40px" /></td>
+				    	<td><a href="#" ng-click="saveFile(f)" class="btn">Save</a></td>
+				    </form>
+			    </tr>
+		    </table>
 	    	</div>
 			<!--
 			<ul>

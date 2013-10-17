@@ -23,7 +23,7 @@ public final class NumberUtil
 
 		try
 		{
-			i = Integer.valueOf(i);
+			i = Integer.valueOf(s);
 		}
 		catch (Exception e)
 		{

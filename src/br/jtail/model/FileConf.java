@@ -1,6 +1,5 @@
 package br.jtail.model;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +32,7 @@ public class FileConf
 	 *
 	 * @author fabiozoroastro@gmail.com
 	 */
-	public static Collection<FileConf> getAllFileConfs() throws JTailException
+	public static Map<String, FileConf> getAllFileConfs() throws JTailException
 	{
 		Set<Object> keys = Prop.get().getProperties().keySet();
 
@@ -57,19 +56,20 @@ public class FileConf
 			{
 				currentMaxBuffer = NumberUtil.toInteger(Prop.get().getProperties().getProperty(strKey));
 				currentFileOnMap.maxBuffer(currentMaxBuffer);
-				strKey.substring(0, strKey.length() - Constants.Def.MAX_BUFFER_SUFIX.length());
+				strKey = strKey.substring(0, strKey.length() - Constants.Def.MAX_BUFFER_SUFIX.length());
 			}
 			else
 			{
 				currentPath = Prop.get().getProperties().getProperty(strKey);
 				currentFileOnMap.path(currentPath);
 			}
+			currentFileOnMap.name(strKey);
 
 			mapFiles.put(strKey, currentFileOnMap);
 
 		}
 
-		return mapFiles.values();
+		return mapFiles;
 	}
 
 	public FileConf()
@@ -88,6 +88,12 @@ public class FileConf
 		this(null, path);
 	}
 
+	public FileConf name(String name)
+	{
+		this.setName(name);
+		return this;
+	}
+	
 	public FileConf path(String path)
 	{
 		this.setPath(path);
