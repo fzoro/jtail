@@ -1,0 +1,7 @@
+
+.fixed-breadcrumb {
+	position: fixed;
+	width: 100%;
+	top: 66px;
+	z-index:1029;
+}
