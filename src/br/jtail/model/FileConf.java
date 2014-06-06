@@ -23,6 +23,7 @@ public class FileConf
 	private String name;
 	private String path;
 	private Integer maxBuffer;
+	private String group;
 
 	/**
 	 * return collection of files configured on conf.properties
@@ -45,7 +46,7 @@ public class FileConf
 		for (Object key : keys)
 		{
 			strKey = key.toString();
-			currentFileOnMap = mapFiles.get(strKey);
+			currentFileOnMap = mapFiles.get(strKey.replaceAll(Constants.Def.MAX_BUFFER_SUFIX, ""));
 
 			if (currentFileOnMap == null)
 			{
@@ -77,10 +78,18 @@ public class FileConf
 		this(null);
 	}
 
-	public FileConf(String name, String path)
+	public FileConf(String name, String path, Integer maxBuffer, String group)
 	{
 		this.name = name;
 		this.path = path;
+		this.maxBuffer = maxBuffer;
+		this.group = group;
+
+	}
+
+	public FileConf(String name, String path)
+	{
+		this(name, path, null, null);
 	}
 
 	public FileConf(String path)
@@ -93,7 +102,7 @@ public class FileConf
 		this.setName(name);
 		return this;
 	}
-	
+
 	public FileConf path(String path)
 	{
 		this.setPath(path);
@@ -134,6 +143,16 @@ public class FileConf
 	public void setMaxBuffer(Integer maxBuffer)
 	{
 		this.maxBuffer = maxBuffer;
+	}
+
+	public String getGroup()
+	{
+		return group;
+	}
+
+	public void setGroup(String group)
+	{
+		this.group = group;
 	}
 
 }

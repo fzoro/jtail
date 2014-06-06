@@ -1,5 +1,6 @@
 package br.jtail.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -20,30 +21,33 @@ import br.jtail.model.FileConf;
 /**
  * Servlet implementation class ServletTail
  */
-public class ServletHome extends HttpServlet {
+public class ServletHome extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public ServletHome() {
+	public ServletHome()
+	{
 		//
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 
 		final String action = request.getParameter("action");
 
 		String jsonResult = "{}";
 
-		try {
+		try
+		{
 
-			if (Constants.Actions.GET_FILES.equals(action)) {
+			if (Constants.Actions.GET_FILES.equals(action))
+			{
 
 				jsonResult = getFiles();
 			}
@@ -52,7 +56,9 @@ public class ServletHome extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(jsonResult);
 			out.flush();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			ErrorHandler.execute(response, e);
 		}
 
@@ -60,29 +66,44 @@ public class ServletHome extends HttpServlet {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 * @throws JTailException
 	 */
-	private String getFiles() throws JTailException {
+	private String getFiles() throws JTailException
+	{
 
 		String result = null;
 		Map<String, FileConf> files = FileConf.getAllFileConfs();
 
-		if (files != null && !files.isEmpty()) {
+		if (files != null && !files.isEmpty())
+		{
 
 			JSONWriter str = new JSONStringer();
 			str = str.array();
 
-			for (FileConf conf : files.values()) {
-				str = str.object();
-				str.key("name");
-				str.value(conf.getName());
-				str.key("path");
-				str.value(conf.getPath());
-				str.key("maxBuffer");
-				str.value(conf.getMaxBuffer());
-				str = str.endObject();
+			for (FileConf conf : files.values())
+			{
+
+				File tmpFile = new File(conf.getPath());
+				if (tmpFile.isDirectory())
+				{
+					// path de pasta
+					File[] children = tmpFile.listFiles();
+					if (children != null && children.length > 0)
+					{
+
+						for(File child : children){
+							FileConf newCf = new FileConf(child.getName(), child.getPath() , conf.getMaxBuffer(), conf.getName());
+							str = createFileJSon(str, newCf);
+						}
+					}
+				}
+				else
+				{
+					// path de arquivo
+					str = createFileJSon(str, conf);
+				}
 			}
 			result = str.endArray().toString();
 		}
@@ -90,11 +111,32 @@ public class ServletHome extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Create JSON with data file
+	 *
+	 * @param str
+	 * @param conf
+	 * @return
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	private JSONWriter createFileJSon(JSONWriter str, FileConf conf)
+	{
+		str = str.object();
+		str.key("name");
+		str.value(conf.getName());
+		str.key("path");
+		str.value(conf.getPath());
+		str.key("maxBuffer");
+		str.value(conf.getMaxBuffer());
+		str.key("group");
+		str.value(conf.getGroup());
+		str = str.endObject();
+		return str;
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	}
 }
