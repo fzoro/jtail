@@ -71,6 +71,8 @@
 						<select id="id_select" class="selectpicker" data-live-search="true" onclick="start(f)">
 					        <option ng-repeat="f in files">{{f.name}}</option>
 					    </select>
+					    <select ng-model="files" ng-options="file.name group by color.shade for color in colors">
+  						</select>
 					    <button type="button" class="btn btn-danger navbar-btn">Parar</button>
          				<button type="button" class="btn btn-default navbar-btn">Limpar</button>
           				<button type="button" class="btn btn-info navbar-btn">Rolar</button>
