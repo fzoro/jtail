@@ -7,14 +7,18 @@
 }
 
 #console {
-	/* position:relative; */
 	text-align: left;
 	overflow: auto;
 	height:100%;
 	white-space: pre;
 	font-size:11px;
 	width:100%;
-	/* background-color:black; */
+	padding-left: 8px;
+/*
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	box-shadow: 0 0 2px #ccc;
+*/
 }
 
 
@@ -27,4 +31,20 @@
 
 #actions img{
 	cursor:pointer;
+}
+
+
+.matrix-theme{
+	color:#77EE33;
+	background-color:#000;
+}
+
+.white-theme{
+	color:#000;
+	background-color:#FFF;
+}
+
+.black-theme{
+	color:#FFF;
+	background-color:#000;
 }

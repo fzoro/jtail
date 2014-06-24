@@ -60,15 +60,14 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<span class="navbar-brand">Java tail</span>
+				<span class="navbar-brand" onclick="alert( $('#id_select').prop('selectedIndex') )">Java tail</span>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-cllapse">
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-   					    <!-- class="selectpicker" -->
-   					    <select id="id_select" ng-model="myFile" ng-change="start(myFile)" ng-options="file.name group by file.group for file in files">
+   					    <select id="myFile" class="selectpicker" onchange="changeFile(this)" ng-model="myFile" ng-change="start(myFile)" ng-options="file.name group by file.group for file in files">
 						</select>
 						<div id="actions">
 							<img id="actScroll" src="res/img/autoscroll.png" ng-click="changeAutoscroll()" alt="Barra de rolagem autom&aacute;tica" title="Barra de rolagem autom&aacute;tica" />
@@ -80,6 +79,19 @@
 					</div>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<div class="btn-group" style="padding-top:5px">
+						  <div class="btn-group">
+						    <button type="button" class="btn btn-default black-theme" ng-click="changeTheme('black')">Preto</button>
+						  </div>
+						  <div class="btn-group">
+						    <button type="button" class="btn btn-default white-theme" ng-click="changeTheme('white')">Branco</button>
+						  </div>
+						  <div class="btn-group">
+						    <button type="button" class="btn btn-default matrix-theme" ng-click="changeTheme('matrix')">Matrix</button>
+						  </div>
+						</div>
+					</li>
 					<li><a href="#"><span class="glyphicon glyphicon-cog" /></a></li>
 				</ul>
 			</div>
@@ -89,15 +101,32 @@
 	</div>
 
 
-	<div class="container-fluid">
+	<div class="container-fluid" id="master-section">
 			<div class="col-md-12">
 				 <div id="console" style="overflow: auto; height: 100%;">{{console}}</div>
 			</div>
 	</div>
-	<hr />
-	<footer>
-		<p>&copy; JTail 2014</p>
-	</footer>
-	<!-- /container -->
 </body>
+<script type="text/javascript">
+
+function changeFile(c){
+
+	fileName = $( "#myFile option:selected" ).text();
+	bodyAngScope = angular.element($('body')).scope();
+	files = bodyAngScope.files;
+
+	myFile = null;
+
+	for(idx = 0; myFile == null && idx < files.length; idx++){
+		if( files[idx].name == fileName){
+			myFile = files[idx];
+		}
+	}
+	bodyAngScope.start(myFile)
+	// angScope = angular.element($('#myFile')).scope();
+
+
+}
+
+</script>
 </html>

@@ -9,6 +9,7 @@ function HomeController($scope, $window, $http, $log){
 		$ = jQuery
 	;
 
+	$scope.myFile = null;
 
 	$scope.changeAutoscroll = function(){
 		autoScroll = !autoScroll;
@@ -58,9 +59,17 @@ function HomeController($scope, $window, $http, $log){
 	}
 
 
-	$scope.bleh = function(){
-		$window.alert($scope.myFile);
+	$scope.changeTheme = function(theme){
+		theme += '-theme';
+
+		olderClasses = 'black-theme white-theme matrix-theme';
+		//$('#master-section').removeClass(olderClasses).removeClass('white-theme').removeClass('matrix-theme').addClass(theme);
+		$('#master-section').removeClass(olderClasses).addClass(theme);
+		//$('#master-section').switchClass(swClass, theme, 1000, "easeInOutQuad");
+
 	}
+
+
 	$scope.start = function(f){
 
 		stop();
