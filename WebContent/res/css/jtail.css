@@ -16,3 +16,15 @@
 	width:100%;
 	/* background-color:black; */
 }
+
+
+
+
+#actions{
+	vertical-align: middle;
+    display: none;
+}
+
+#actions img{
+	cursor:pointer;
+}

@@ -112,7 +112,11 @@ function HomeController($scope, $window, $http, $log){
 	* store size bytes[] in {{off}}, value(txt) in {{console}} and off to kBytes in {{kbytes}}
 	*/
 	var tail = function(f){
-		var url = 'tail?fileName=' + f.name + '&off=' + $scope.off + '&group=' + f.group;
+		var url = 'tail?fileName=' + f.name + '&off=' + $scope.off;
+
+		if(f.group){
+			url += '&group=' + f.group;
+		}
 
 		$http.get(url).success(function(data){
 			$scope.fileName = data.fileName;
@@ -136,7 +140,9 @@ function HomeController($scope, $window, $http, $log){
 		$scope.console += value;
 
 		if( autoScroll ){
-			$('#console').scrollTop($('#console')[0].scrollHeight);
+			//$('#console').scrollTop($('#console')[0].scrollHeight);
+			y = document.body.scrollHeight;
+			$window.scrollTo(0,y);
 		}
 	}
 

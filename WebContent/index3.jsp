@@ -70,18 +70,14 @@
    					    <!-- class="selectpicker" -->
    					    <select id="id_select" ng-model="myFile" ng-change="start(myFile)" ng-options="file.name group by file.group for file in files">
 						</select>
-						<img id="actScroll" src="res/img/autoscroll.png" ng-click="changeAutoscroll()" alt="Auto scroll" title="Auto scroll" />
-						<img id="actClear" src="res/img/clear.png" ng-click="clear()" alt="Clear console" title="Clear console" />
-						<img id="actPause" src="res/img/pause.png" ng-click="pause()" alt="Pause tail" title="Pause tail" />
-						<img style="display:none" id="actPlay" src="res/img/play.png" ng-click="resume()" alt="Resume tail" title="Resume tail" />
-					    <!--
-					    <button id="actPause" type="button" class="btn btn-default navbar-btn" ng-click="pause()">Carregando</button>
-          				<button id="actScroll" type="button" class="btn btn-default navbar-btn" ng-click="changeAutoscroll()">Rolando</button>
-         				<button id="actClear" type="button" class="btn btn-default navbar-btn" ng-click="clear()">Limpar</button>
-						<input type="text" class="form-control" placeholder="Texto">
-         				 -->
+						<div id="actions">
+							<img id="actScroll" src="res/img/autoscroll.png" ng-click="changeAutoscroll()" alt="Barra de rolagem autom&aacute;tica" title="Barra de rolagem autom&aacute;tica" />
+							<img id="actPause" src="res/img/pause.png" ng-click="pause()" alt="Parar Tail" title="Parar Tail" />
+							<img style="display:none" id="actPlay" src="res/img/play.png" ng-click="resume()" alt="Voltar Tail" title="Voltar Tail" />
+							<img id="actClear" src="res/img/clear.png" ng-click="clear()" alt="Limpar console" title="Limpar console" />
+							<span><b>{{fileName}}</b> | KB: {{kbytes}}</span>
+						</div>
 					</div>
-					<!-- <button type="submit" class="btn btn-default">Destacar</button> -->
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-cog" /></a></li>
