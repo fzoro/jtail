@@ -122,10 +122,10 @@ public class ServletHome extends HttpServlet
 		str = str.object();
 		str.key("name");
 		str.value(conf.getName());
-		str.key("path");
-		str.value(conf.getPath());
-		str.key("maxBuffer");
-		str.value(conf.getMaxBuffer());
+//		str.key("path");
+//		str.value(conf.getPath());
+//		str.key("maxBuffer");
+//		str.value(conf.getMaxBuffer());
 		str.key("group");
 		str.value(conf.getGroup());
 		str = str.endObject();

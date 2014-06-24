@@ -1,5 +1,6 @@
 package br.jtail.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -42,7 +43,9 @@ public class ServletTail extends HttpServlet
 		{
 
 			String fileName = request.getParameter("fileName");
-			String filePath = Prop.get().getProperties().getProperty(fileName);
+			String group = request.getParameter("group");
+
+			String filePath = getFilePath(fileName, group);
 			String off = request.getParameter("off");
 			int intOff;
 			try
@@ -65,6 +68,48 @@ public class ServletTail extends HttpServlet
 			ErrorHandler.execute(response, e);
 		}
 		response.setStatus(HttpServletResponse.SC_ACCEPTED);
+	}
+
+	/**
+	 * Returns filepath from filename or filename at group
+	 *
+	 * @return
+	 * @throws JTailException
+	 */
+	private String getFilePath(final String fileName, final String group) throws JTailException
+	{
+
+		String filePath = null;
+		if (group != null && group.trim().length() > 0)
+		{
+			final String folderGroup = Prop.get().getProperties().getProperty(group);
+			// to usefull in all operation system, catch the real path
+			// filePath = folderGroup.concat(fileName);
+			File tmpFile = new File(folderGroup);
+			if (tmpFile != null && tmpFile.isDirectory())
+			{
+
+				for (File tmpRealFile : tmpFile.listFiles())
+				{
+					if (tmpRealFile.getName().equals(fileName))
+					{
+						filePath = tmpRealFile.getPath();
+					}
+
+				}
+			}
+		}
+
+		else
+		{
+			filePath = Prop.get().getProperties().getProperty(fileName);
+		}
+
+		if (filePath == null)
+		{
+			throw new JTailException(Constants.Messages.PATH_NOT_FOUND);
+		}
+		return filePath;
 	}
 
 	public static void main(String[] args) throws JTailException

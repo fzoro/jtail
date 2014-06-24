@@ -67,18 +67,21 @@
 			<div class="collapse navbar-collapse" id="navbar-cllapse">
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-
-						<select id="id_select" class="selectpicker" data-live-search="true" onclick="start(f)">
-					        <option ng-repeat="f in files">{{f.name}}</option>
-					    </select>
-					    <select ng-model="files" ng-options="file.name group by color.shade for color in colors">
-  						</select>
-					    <button type="button" class="btn btn-danger navbar-btn">Parar</button>
-         				<button type="button" class="btn btn-default navbar-btn">Limpar</button>
-          				<button type="button" class="btn btn-info navbar-btn">Rolar</button>
+   					    <!-- class="selectpicker" -->
+   					    <select id="id_select" ng-model="myFile" ng-change="start(myFile)" ng-options="file.name group by file.group for file in files">
+						</select>
+						<img id="actScroll" src="res/img/autoscroll.png" ng-click="changeAutoscroll()" alt="Auto scroll" title="Auto scroll" />
+						<img id="actClear" src="res/img/clear.png" ng-click="clear()" alt="Clear console" title="Clear console" />
+						<img id="actPause" src="res/img/pause.png" ng-click="pause()" alt="Pause tail" title="Pause tail" />
+						<img style="display:none" id="actPlay" src="res/img/play.png" ng-click="resume()" alt="Resume tail" title="Resume tail" />
+					    <!--
+					    <button id="actPause" type="button" class="btn btn-default navbar-btn" ng-click="pause()">Carregando</button>
+          				<button id="actScroll" type="button" class="btn btn-default navbar-btn" ng-click="changeAutoscroll()">Rolando</button>
+         				<button id="actClear" type="button" class="btn btn-default navbar-btn" ng-click="clear()">Limpar</button>
 						<input type="text" class="form-control" placeholder="Texto">
+         				 -->
 					</div>
-					<button type="submit" class="btn btn-default">Destacar</button>
+					<!-- <button type="submit" class="btn btn-default">Destacar</button> -->
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-cog" /></a></li>
@@ -92,12 +95,12 @@
 
 	<div class="container-fluid">
 			<div class="col-md-12">
-				 <div style="overflow: auto; height: 100%;">{{console}}</div>
+				 <div id="console" style="overflow: auto; height: 100%;">{{console}}</div>
 			</div>
 	</div>
 	<hr />
 	<footer>
-		<p>&copy; Company 2014</p>
+		<p>&copy; JTail 2014</p>
 	</footer>
 	<!-- /container -->
 </body>

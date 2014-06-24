@@ -5,3 +5,14 @@
 	top: 66px;
 	z-index:1029;
 }
+
+#console {
+	/* position:relative; */
+	text-align: left;
+	overflow: auto;
+	height:100%;
+	white-space: pre;
+	font-size:11px;
+	width:100%;
+	/* background-color:black; */
+}

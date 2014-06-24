@@ -58,6 +58,9 @@ function HomeController($scope, $window, $http, $log){
 	}
 
 
+	$scope.bleh = function(){
+		$window.alert($scope.myFile);
+	}
 	$scope.start = function(f){
 
 		stop();
@@ -109,7 +112,7 @@ function HomeController($scope, $window, $http, $log){
 	* store size bytes[] in {{off}}, value(txt) in {{console}} and off to kBytes in {{kbytes}}
 	*/
 	var tail = function(f){
-		var url = 'tail?fileName=' + f.name + '&off=' + $scope.off;
+		var url = 'tail?fileName=' + f.name + '&off=' + $scope.off + '&group=' + f.group;
 
 		$http.get(url).success(function(data){
 			$scope.fileName = data.fileName;
