@@ -67,7 +67,7 @@
 			<div class="collapse navbar-collapse" id="navbar-cllapse">
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-   					    <select id="myFile" class="selectpicker" onchange="changeFile(this)" ng-model="myFile" ng-change="start(myFile)" ng-options="file.name group by file.group for file in files">
+   					    <select id="myFile" class="selectpicker show-tick" data-live-search="true" onchange="changeFile(this)" ng-model="myFile" ng-change="start(myFile)" ng-options="file.name group by file.group for file in files">
 						</select>
 						<div id="actions">
 							<img id="actScroll" src="res/img/autoscroll.png" ng-click="changeAutoscroll()" alt="Barra de rolagem autom&aacute;tica" title="Barra de rolagem autom&aacute;tica" />

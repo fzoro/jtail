@@ -29,4 +29,9 @@ public interface Constants {
 	String FILE_NOT_FOUND = "File {0} not found!";
 	String PATH_NOT_FOUND = "Path not found!";
     }
+
+    interface Admin {
+
+	String SESSION_USER = "session-user";
+    }
 }

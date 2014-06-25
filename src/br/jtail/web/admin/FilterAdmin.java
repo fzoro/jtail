@@ -11,9 +11,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class FilterAdmin implements Filter {
+import br.jtail.core.Constants;
+import br.jtail.model.AdminUser;
 
-    private static final long serialVersionUID = 1L;
+public class FilterAdmin implements Filter {
 
     @Override
     public void destroy() {
@@ -21,20 +22,33 @@ public class FilterAdmin implements Filter {
 
     }
 
+    /**
+     * validate user in session to proceed
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
 	    FilterChain chain) throws IOException, ServletException {
+
 	HttpServletRequest httpReq = (HttpServletRequest) req;
 	HttpSession session = (HttpSession) httpReq.getSession(false);
-	if (session != null && session.getAttribute(arg0)) {
+	AdminUser usr = null;
 
+	if (session != null) {
+	    usr = (AdminUser) session
+		    .getAttribute(Constants.Admin.SESSION_USER);
+	}
+
+	if (usr != null) {
+	    // ok
+	} else {
+	    // usuario nao autenticado
 	}
 
     }
 
     @Override
-    public void init(FilterConfig arg0) throws ServletException {
-	// TODO Auto-generated method stub
+    public void init(FilterConfig cfg) throws ServletException {
 
     }
 
