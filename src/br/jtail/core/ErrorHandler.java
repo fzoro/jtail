@@ -5,20 +5,19 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-public final class ErrorHandler
-{
+public final class ErrorHandler {
 
-	private ErrorHandler()
-	{
+    private ErrorHandler() {
 
-	}
+    }
 
-	public static void execute(HttpServletResponse response, Exception e) throws IOException
-	{
-		PrintWriter out = response.getWriter();
-		String message = String.format("{ \"error\" : \"%s\"} ", e.getMessage());
-		out.print(message);
-		out.flush();
-	}
+    public static void execute(HttpServletResponse response, Exception e)
+	    throws IOException {
+	PrintWriter out = response.getWriter();
+	String message = String
+		.format("{ \"error\" : \"%s\"} ", e.getMessage());
+	out.print(message);
+	out.flush();
+    }
 
 }

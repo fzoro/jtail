@@ -5,70 +5,58 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-public class Prop
-{
+/**
+ * Prop class to read conf.properties
+ */
+public class Prop {
 
-	private static Prop instance;
-	private Properties properties;
+    private static Prop instance;
+    private Properties properties;
 
-	private static Logger log = Logger.getLogger(Prop.class.getName());
+    private static Logger log = Logger.getLogger(Prop.class.getName());
 
-	public static Prop get() throws JTailException
-	{
-		if (instance == null)
-		{
-			instance = new Prop();
-		}
-
-		return instance;
+    public static Prop get() throws JTailException {
+	if (instance == null) {
+	    instance = new Prop();
 	}
 
-	private Prop() throws JTailException
-	{
-		load();
-	}
+	return instance;
+    }
 
-	public Properties getProperties()
-	{
-		return this.properties;
-	}
+    private Prop() throws JTailException {
+	load();
+    }
 
-	/**
-	 * Carrega as propriedades de configuracao oriundas do arquivo MCA.properties;
-	 *
-	 * @return
-	 * @throws IOException
-	 */
-	public void load() throws JTailException
-	{
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream input = null;
+    public Properties getProperties() {
+	return this.properties;
+    }
 
-		try
-		{
-			input = cl.getResourceAsStream("conf.properties");
-			properties = new Properties();
-			properties.load(input);
+    /**
+     * load conf.properties
+     *
+     * @return
+     * @throws IOException
+     */
+    public void load() throws JTailException {
+	ClassLoader cl = Thread.currentThread().getContextClassLoader();
+	InputStream input = null;
 
+	try {
+	    input = cl.getResourceAsStream("conf.properties");
+	    properties = new Properties();
+	    properties.load(input);
+
+	} catch (Exception e) {
+	    throw new JTailException(e);
+	} finally {
+	    if (input != null) {
+		try {
+		    input.close();
+		} catch (IOException e) {
+		    throw new JTailException(e);
 		}
-		catch (Exception e)
-		{
-			throw new JTailException(e);
-		}
-		finally
-		{
-			if (input != null)
-			{
-				try
-				{
-					input.close();
-				}
-				catch (IOException e)
-				{
-					throw new JTailException(e);
-				}
-			}
-		}
+	    }
 	}
+    }
 
 }

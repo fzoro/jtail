@@ -108,7 +108,10 @@
 	</div>
 </body>
 <script type="text/javascript">
-
+/**
+ * Necessario criar essa funcao do lado de fora do escopo do angularjs, pois estava havendo conflito com a lib de css selectpicker
+ * Este metodo substitui o ng-click="start(myfile)"
+ */
 function changeFile(c){
 
 	fileName = $( "#myFile option:selected" ).text();
@@ -123,9 +126,6 @@ function changeFile(c){
 		}
 	}
 	bodyAngScope.start(myFile)
-	// angScope = angular.element($('#myFile')).scope();
-
-
 }
 
 </script>
