@@ -1,4 +1,4 @@
 jtail
 =====
 
-Java Tail(Linux) Web Application
+Java Tail(Linux) Web Application.
